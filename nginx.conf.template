@@ -18,6 +18,12 @@ http {
 
         root /app/static;
         gzip_static on;
+
+        location /id {
+            add_header Content-Type text/plain;
+            return 200 '${ID_TEXT}\n';
+        }
+
     }
 }
 
