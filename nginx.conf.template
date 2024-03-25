@@ -3,6 +3,7 @@ events {
 }
 
 http {
+    limit_req_zone 1 zone=one:10m rate=${REQUEST_RATE}r/s;
     include mime.types;
     sendfile on;
 
@@ -19,6 +20,9 @@ http {
         root /app/static;
         gzip_static on;
 
+        location / {
+          limit_req zone=one burst=1000;
+        }
         location /id {
             add_header Content-Type text/plain;
             return 200 '${ID_TEXT}\n';
